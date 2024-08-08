@@ -14,26 +14,30 @@ import java.util.List;
 @RequestMapping("/users")
 @Slf4j
 public class UserController {
+
     private final List<User> users = new ArrayList<>();
 
     @PostMapping
-    public User addNewUsers(@Valid @RequestBody User user){
+    public User addNewUsers(@Valid @RequestBody User user) {
         validateUser(user);
         users.add(user);
         log.info("Пользователь добавлен {}", user);
         return user;
     }
+
     @PutMapping
-    public User update(@Valid @RequestBody User user){
+    public User update(@Valid @RequestBody User user) {
         validateUser(user);
         log.info("Пользователь обновлен: {}", user);
         return user;
     }
+
     @GetMapping
-    public List<User> getAllUsers(){
+    public List<User> getAllUsers() {
         return users;
     }
-    public void validateUser(User user) {
+
+    private void validateUser(User user) {
         if (user.getBirthday().isAfter(LocalDate.now())) {
             throw new ValidateException("Birthday cannot be in the future");
         }

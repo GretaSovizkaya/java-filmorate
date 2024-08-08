@@ -1,14 +1,11 @@
 package ru.yandex.practicum.filmorate;
-import ru.yandex.practicum.filmorate.model.User;
 
+import ru.yandex.practicum.filmorate.model.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-
 import jakarta.validation.*;
-
 import java.time.LocalDate;
 import java.util.Set;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
@@ -23,11 +20,10 @@ public class UserTest {
 
     @Test
     public void testUserEmailNotBlank() {
-        User user = new User();
+        User user = new User(LocalDate.of(2000, 1, 1));  // указываем обязательное поле birthday
         user.setEmail("");  // пустой email
         user.setLogin("login");
         user.setName("name");
-        user.setBirthday(LocalDate.of(2000, 1, 1));
 
         Set<ConstraintViolation<User>> violations = validator.validate(user);
         assertEquals(1, violations.size());
@@ -36,11 +32,10 @@ public class UserTest {
 
     @Test
     public void testUserEmailValid() {
-        User user = new User();
+        User user = new User(LocalDate.of(2000, 1, 1));  // указываем обязательное поле birthday
         user.setEmail("invalid-email");  // некорректный email
         user.setLogin("login");
         user.setName("name");
-        user.setBirthday(LocalDate.of(2000, 1, 1));
 
         Set<ConstraintViolation<User>> violations = validator.validate(user);
         assertEquals(1, violations.size());
@@ -49,21 +44,19 @@ public class UserTest {
 
     @Test
     public void testUserLoginNotBlank() {
-        User user = new User();
+        User user = new User(LocalDate.of(2000, 1, 1));  // указываем обязательное поле birthday
         user.setEmail("user@example.com");
         user.setLogin("");  // пустой логин
         user.setName("name");
-        user.setBirthday(LocalDate.of(2000, 1, 1));
 
         Set<ConstraintViolation<User>> violations = validator.validate(user);
         assertEquals(1, violations.size());
         assertEquals("Login cannot be empty", violations.iterator().next().getMessage());
     }
 
-
     @Test
     public void testUserBirthdayNotInFuture() {
-        User user = new User();
+        User user = new User(LocalDate.of(2000, 1, 1));  // указываем обязательное поле birthday
         user.setEmail("user@example.com");
         user.setLogin("login");
         user.setName("name");
