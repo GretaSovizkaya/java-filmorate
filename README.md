@@ -1,5 +1,5 @@
 # java-filmorate
-![ ](https://github.com/GretaSovizkaya/java-filmorate/blob/3e69b1ee45ade0c837f666108c7d7b4c28a52c7b/ER%20Diagram%20Filmorate.png)
+![ ](https://github.com/GretaSovizkaya/java-filmorate/blob/213a8d6dbc386fbced81fc7f7822b7625fbcdeab/ER%20Diagram%20Filmorate%20(2).png)
 Примеры запросов для основных операций приложения:
 1) Получение всех фильмов
    SELECT * FROM films;
