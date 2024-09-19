@@ -3,10 +3,9 @@ package ru.yandex.practicum.filmorate.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.model.User;
-import ru.yandex.practicum.filmorate.service.UserService;
+import ru.yandex.practicum.filmorate.service.UserDbService;
 
 import java.util.List;
 
@@ -14,8 +13,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor
-public class UserController {
-    private final UserService userService;
+public class UserDbController {
+    private final UserDbService userService;
 
     @PostMapping
     public User addUser(@Valid @RequestBody User user) {
@@ -60,7 +59,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}/friends")
-    public List<User> getFriends(@PathVariable int id) {
+    public List<User> getFriends(@PathVariable int id, @PathVariable int friendId) {
         log.info("Запрос на получение друзей пользователя с id: {}", id);
         return userService.getFriends(id);
     }

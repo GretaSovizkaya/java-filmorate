@@ -1,9 +1,11 @@
 package ru.yandex.practicum.filmorate.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.model.Film;
+import ru.yandex.practicum.filmorate.model.Genre;
+import ru.yandex.practicum.filmorate.model.Rating;
 import ru.yandex.practicum.filmorate.storage.FilmStorage;
 
 
@@ -11,7 +13,8 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class FilmService {
+public class FilmDbService {
+    @Qualifier("filmDbStorage")
     private final FilmStorage filmStorage;
 
     public Film addFilm(Film film) {
@@ -44,5 +47,15 @@ public class FilmService {
 
     public List<Film> getPopularFilms(int count) {
         return filmStorage.getAllFilms();
+    }
+    public List<Genre> getAllGenres() {
+        return filmStorage.getAllGenres();
+    }
+
+    public Genre getGenreById(int id) {
+        return filmStorage.getGenreById(id);
+    }
+    public Rating getRatingById(int id) {
+        return filmStorage.getRatingById(id);
     }
 }

@@ -3,21 +3,19 @@ package ru.yandex.practicum.filmorate.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.model.Film;
-import ru.yandex.practicum.filmorate.exception.ValidateException;
-import ru.yandex.practicum.filmorate.service.FilmService;
+import ru.yandex.practicum.filmorate.model.Genre;
+import ru.yandex.practicum.filmorate.model.Rating;
+import ru.yandex.practicum.filmorate.service.FilmDbService;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/films")
 @RequiredArgsConstructor
-public class FilmController {
-    private final FilmService filmService;
+public class FilmDbController {
+    private final FilmDbService filmService;
 
     @PostMapping
     public Film addNewFilms(@Valid @RequestBody Film film) {
@@ -66,4 +64,24 @@ public class FilmController {
         log.info("Запрос на получение {} популярных фильмов", count);
         return filmService.getPopularFilms(count);
     }
+
+    @GetMapping("/genres")
+    public List<Genre> getAllGenres() {
+        log.info("Запрос на получение всех жанров");
+        return filmService.getAllGenres();
+    }
+
+    @GetMapping("/genres/{id}")
+    public Genre getGenreById(@PathVariable int id) {
+        log.info("Запрос на получение жанра по id: {}", id);
+        return filmService.getGenreById(id);
+    }
+
+
+    @GetMapping("/mpa/{id}")
+    public Rating getRatingById(@PathVariable int id) {
+        log.info("Запрос на получение рейтинга по id: {}", id);
+        return filmService.getRatingById(id);
+    }
+
 }
