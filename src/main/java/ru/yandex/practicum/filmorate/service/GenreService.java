@@ -8,18 +8,26 @@ import ru.yandex.practicum.filmorate.storage.GenreStorage;
 import ru.yandex.practicum.filmorate.storage.GenreStorage;
 
 import java.util.Collection;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class GenreService {
-    private final GenreStorage genreRepository;
+    private final GenreStorage genreStorage;
 
     public Collection<Genre> getGenreList() {
-        return genreRepository.getGenres();
+        return genreStorage.getGenres();
     }
 
     public Genre findById(long id) {
-        return genreRepository.findById(id)
+        return genreStorage.findById(id)
                 .orElseThrow(() -> new NotFoundException("Жанр не найден"));
+    }
+    public List<Genre> getAllGenres() {
+        return genreStorage.getAllGenres();
+    }
+
+    public Genre getGenreById(int id) {
+        return genreStorage.getGenreById(id);
     }
 }

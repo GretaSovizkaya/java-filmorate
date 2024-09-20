@@ -18,4 +18,6 @@ public interface GenreStorage {
     void delete(Genre genre);
 
     Genre update(Genre genre);
+    List<Genre> getAllGenres();
+    Genre getGenreById(int id);
 }

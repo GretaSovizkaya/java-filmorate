@@ -68,4 +68,17 @@ public class DataBaseRatingStorage implements RatingStorage {
 
         jdbc.update(DELETE_RATING_QUERY, parameters);
     }
+    @Override
+    public Rating getRatingById(int id) {
+        String sql = "SELECT FILM_ID, RATING_NAME FROM RATING_MPA WHERE FILM_ID = :filmId";
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue("filmId", id);
+
+        try {
+            return jdbc.queryForObject(sql, parameters, new RatingMapper());
+        } catch (EmptyResultDataAccessException e) {
+            return null; // or handle it according to your application's logic
+        }
+    }
+
 }

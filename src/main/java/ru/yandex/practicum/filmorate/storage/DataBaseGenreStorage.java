@@ -80,4 +80,23 @@ public class DataBaseGenreStorage implements GenreStorage {
         jdbc.update(DELETE_GENRE_QUERY, parameters);
         jdbc.update(DELETE_FILM_GENRES_QUERY, parameters);
     }
+    @Override
+    public List<Genre> getAllGenres() {
+        String sql = "SELECT GENRE_ID, NAME_GENRE FROM GENRE";
+        return jdbc.query(sql, new GenresMapper());
+    }
+
+    @Override
+    public Genre getGenreById(int id) {
+        String sql = "SELECT GENRE_ID, NAME_GENRE FROM GENRE WHERE GENRE_ID = :genreId";
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue("genreId", id);
+
+        try {
+            return jdbc.queryForObject(sql, parameters, new GenresMapper());
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
+
 }

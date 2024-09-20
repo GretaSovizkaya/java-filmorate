@@ -48,14 +48,5 @@ public class FilmDbService {
     public List<Film> getPopularFilms(int count) {
         return filmStorage.getAllFilms();
     }
-    public List<Genre> getAllGenres() {
-        return filmStorage.getAllGenres();
-    }
 
-    public Genre getGenreById(int id) {
-        return filmStorage.getGenreById(id);
-    }
-    public Rating getRatingById(int id) {
-        return filmStorage.getRatingById(id);
-    }
 }

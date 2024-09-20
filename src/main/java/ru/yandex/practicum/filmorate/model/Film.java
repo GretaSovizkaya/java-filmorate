@@ -29,10 +29,10 @@ public class Film {
 
     private Duration duration;
 
-    private String genre; // Изменили тип на String для соответствия схеме
+    private String genre;
 
-    private String rating; // Изменили тип на String для соответствия схеме
+    private String rating;
     private int ratingId;
 
-    private Set<Integer> genreIds; // Изменили тип на Set<Integer> для соответствия схеме
+    private Set<Integer> genreIds;
 }

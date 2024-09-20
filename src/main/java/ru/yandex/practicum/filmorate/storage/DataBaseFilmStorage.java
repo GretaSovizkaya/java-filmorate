@@ -5,11 +5,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 import ru.yandex.practicum.filmorate.model.Film;
-import ru.yandex.practicum.filmorate.model.Genre;
-import ru.yandex.practicum.filmorate.model.Rating;
 import ru.yandex.practicum.filmorate.storage.mappers.FilmMapper;
-import ru.yandex.practicum.filmorate.storage.mappers.GenresMapper;
-import ru.yandex.practicum.filmorate.storage.mappers.RatingMapper;
 
 import java.sql.PreparedStatement;
 import java.util.List;
@@ -74,23 +70,5 @@ public class DataBaseFilmStorage implements FilmStorage {
     public void removeLike(int filmId, int userId) {
         String sql = "DELETE FROM likes WHERE film_id = ? AND user_id = ?";
         jdbcTemplate.update(sql, filmId, userId);
-    }
-
-    @Override
-    public List<Genre> getAllGenres() {
-        String sql = "SELECT * FROM genres";
-        return jdbcTemplate.query(sql, new GenresMapper());
-    }
-
-    @Override
-    public Genre getGenreById(int id) {
-        String sql = "SELECT * FROM genres WHERE id = ?";
-        return jdbcTemplate.queryForObject(sql, new GenresMapper(), id);
-    }
-
-    @Override
-    public Rating getRatingById(int id) {
-        String sql = "SELECT * FROM rating WHERE id = ?";
-        return jdbcTemplate.queryForObject(sql, new RatingMapper(), id);
     }
 }

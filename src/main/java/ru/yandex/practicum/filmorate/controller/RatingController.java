@@ -1,6 +1,7 @@
 package ru.yandex.practicum.filmorate.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,7 +10,7 @@ import ru.yandex.practicum.filmorate.model.Rating;
 import ru.yandex.practicum.filmorate.service.RatingService;
 
 import java.util.Collection;
-
+@Slf4j
 @RestController
 @RequestMapping("/mpa")
 @RequiredArgsConstructor
@@ -22,7 +23,12 @@ public class RatingController {
     }
 
     @GetMapping("{id}")
-    public Rating findUser(@PathVariable int id) {
+    public Rating findMpa(@PathVariable int id) {
         return ratingService.findById(id);
+    }
+    @GetMapping("/mpa/{id}")
+    public Rating getRatingById(@PathVariable int id) {
+        log.info("Запрос на получение рейтинга по id: {}", id);
+        return ratingService.getRatingById(id);
     }
 }

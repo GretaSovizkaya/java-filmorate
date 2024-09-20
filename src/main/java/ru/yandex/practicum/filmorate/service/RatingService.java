@@ -21,4 +21,7 @@ public class RatingService {
         return ratingStorage.findById(id)
                 .orElseThrow(() -> new NotFoundException("Рейтинг не найден"));
     }
+    public Rating getRatingById(int id) {
+        return ratingStorage.getRatingById(id);
+    }
 }

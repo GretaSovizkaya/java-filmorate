@@ -65,23 +65,4 @@ public class FilmDbController {
         return filmService.getPopularFilms(count);
     }
 
-    @GetMapping("/genres")
-    public List<Genre> getAllGenres() {
-        log.info("Запрос на получение всех жанров");
-        return filmService.getAllGenres();
-    }
-
-    @GetMapping("/genres/{id}")
-    public Genre getGenreById(@PathVariable int id) {
-        log.info("Запрос на получение жанра по id: {}", id);
-        return filmService.getGenreById(id);
-    }
-
-
-    @GetMapping("/mpa/{id}")
-    public Rating getRatingById(@PathVariable int id) {
-        log.info("Запрос на получение рейтинга по id: {}", id);
-        return filmService.getRatingById(id);
-    }
-
 }
