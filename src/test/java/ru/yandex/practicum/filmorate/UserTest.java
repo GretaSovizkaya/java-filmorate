@@ -1,4 +1,5 @@
 package ru.yandex.practicum.filmorate;
+
 import ru.yandex.practicum.filmorate.model.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -7,9 +8,8 @@ import java.time.LocalDate;
 import java.util.Set;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@SpringBootTest(classes = FilmorateApplication.class)
+@SpringBootTest
 public class UserTest {
-
 
     private final Validator validator;
 
@@ -20,9 +20,8 @@ public class UserTest {
 
     @Test
     public void testUserEmailNotBlank() {
-        User user = new User();  // Use the no-arg constructor
-        user.setBirthday(LocalDate.of(2000, 1, 1));  // Set the required fields
-        user.setEmail("");  // Empty email
+        User user = new User();  // указываем обязательное поле birthday
+        user.setEmail("");  // пустой email
         user.setLogin("login");
         user.setName("name");
 
@@ -33,9 +32,8 @@ public class UserTest {
 
     @Test
     public void testUserEmailValid() {
-        User user = new User();  // Use the no-arg constructor
-        user.setBirthday(LocalDate.of(2000, 1, 1));  // Set the required fields
-        user.setEmail("invalid-email");  // Invalid email
+        User user = new User();  // указываем обязательное поле birthday
+        user.setEmail("invalid-email");  // некорректный email
         user.setLogin("login");
         user.setName("name");
 
@@ -46,10 +44,9 @@ public class UserTest {
 
     @Test
     public void testUserLoginNotBlank() {
-        User user = new User();  // Use the no-arg constructor
-        user.setBirthday(LocalDate.of(2000, 1, 1));  // Set the required fields
+        User user = new User();  // указываем обязательное поле birthday
         user.setEmail("user@example.com");
-        user.setLogin("");  // Empty login
+        user.setLogin("");  // пустой логин
         user.setName("name");
 
         Set<ConstraintViolation<User>> violations = validator.validate(user);
@@ -59,11 +56,11 @@ public class UserTest {
 
     @Test
     public void testUserBirthdayNotInFuture() {
-        User user = new User();  // Use the no-arg constructor
-        user.setBirthday(LocalDate.of(3000, 1, 1));  // Birthday in the future
+        User user = new User();  // указываем обязательное поле birthday
         user.setEmail("user@example.com");
         user.setLogin("login");
         user.setName("name");
+        user.setBirthday(LocalDate.of(3000, 1, 1));  // дата рождения в будущем
 
         Set<ConstraintViolation<User>> violations = validator.validate(user);
         assertEquals(1, violations.size());

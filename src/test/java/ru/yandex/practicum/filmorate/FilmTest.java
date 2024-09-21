@@ -1,16 +1,15 @@
 package ru.yandex.practicum.filmorate;
 
+import ru.yandex.practicum.filmorate.model.Film;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import jakarta.validation.*;
-import ru.yandex.practicum.filmorate.model.Film;
-
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.Set;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@SpringBootTest(classes = FilmorateApplication.class)
+@SpringBootTest
 public class FilmTest {
 
     private final Validator validator;
@@ -22,9 +21,8 @@ public class FilmTest {
 
     @Test
     public void testFilmNameNotBlank() {
-        Film film = new Film();  // Use the no-arg constructor
-        film.setReleaseDate(LocalDate.of(2020, 1, 1));  // Set required fields
-        film.setName("");  // Empty name
+        Film film = new Film();  // указываем обязательное поле releaseDate
+        film.setName("");  // пустое название
         film.setDescription("Description");
         film.setDuration(Duration.ofMinutes(120));
 
@@ -35,10 +33,9 @@ public class FilmTest {
 
     @Test
     public void testFilmDescriptionTooLong() {
-        Film film = new Film();  // Use the no-arg constructor
-        film.setReleaseDate(LocalDate.of(2020, 1, 1));  // Set required fields
+        Film film = new Film();  // указываем обязательное поле releaseDate
         film.setName("Film Name");
-        film.setDescription("A".repeat(201));  // Description too long
+        film.setDescription("A".repeat(201));  // слишком длинное описание
         film.setDuration(Duration.ofMinutes(120));
 
         Set<ConstraintViolation<Film>> violations = validator.validate(film);

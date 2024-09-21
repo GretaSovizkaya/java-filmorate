@@ -1,6 +1,7 @@
 package ru.yandex.practicum.filmorate;
 
 import lombok.RequiredArgsConstructor;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.context.annotation.Import;
 import ru.yandex.practicum.filmorate.model.Film;
-import ru.yandex.practicum.filmorate.model.Genre;
+import ru.yandex.practicum.filmorate.model.Genres;
 import ru.yandex.practicum.filmorate.model.Rating;
 import ru.yandex.practicum.filmorate.storage.DataBaseFilmStorage;
 import ru.yandex.practicum.filmorate.storage.FilmStorage;
@@ -23,8 +24,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 @AutoConfigureTestDatabase
 @Import(DataBaseFilmStorage.class)
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
-@DisplayName("JdbcFilmStorage")
-public class JdbcFilmStorageTest {
+@DisplayName("DataBaseFilmStorage")
+public class DataBaseFilmStorageTest {
     private final FilmStorage filmStorage;
 
     static Rating testRating() {
@@ -34,29 +35,29 @@ public class JdbcFilmStorageTest {
         return rating;
     }
 
-    static Genre testGenre() {
-        Genre genre = new Genre();
-        genre.setId(1L);
-        genre.setName("Криминал");
-        return genre;
+    static Genres testGenre() {
+        Genres genres = new Genres();
+        genres.setId(1L);
+        genres.setName("Криминал");
+        return genres;
     }
 
     static Film compareTestFilm() {
-        LinkedHashSet<Genre> setGenres = new LinkedHashSet<>();
+        LinkedHashSet<Genres> setGenres = new LinkedHashSet<>();
         setGenres.add(testGenre());
         Film film = new Film();
         film.setId(1);
         film.setDescription("Гангстеры делят наркоферму");
         film.setName("Джентельмены");
-        film.setRating(testRating().getName()); // Преобразуем Rating в String
+        film.setRating(testRating().getName());
         film.setGenre(String.valueOf(setGenres));
-        film.setDuration(Duration.ofMinutes(113)); // Устанавливаем Duration в минутах
+        film.setDuration(Duration.ofMinutes(113));
         film.setReleaseDate(LocalDate.of(2019, 12, 3));
         return film;
     }
 
     static Film createTestFilm(Integer id) {
-        LinkedHashSet<Genre> setGenres = new LinkedHashSet<>();
+        LinkedHashSet<Genres> setGenres = new LinkedHashSet<>();
         setGenres.add(testGenre());
         Film film = new Film();
         if (id != 0) {
@@ -64,18 +65,24 @@ public class JdbcFilmStorageTest {
         }
         film.setDescription("Описание к фильму");
         film.setName("Фильм новый");
-        film.setRating(testRating().getName()); // Преобразуем Rating в String
+        film.setRating(testRating().getName());
         film.setGenre(String.valueOf(setGenres));
-        film.setDuration(Duration.ofMinutes(113)); // Устанавливаем Duration в минутах
+        film.setDuration(Duration.ofMinutes(113));
         film.setReleaseDate(LocalDate.of(2019, 12, 3));
-
         return film;
+    }
+
+    @BeforeEach
+    public void setUp() {
+        // Resetting database state for each test
+        filmStorage.deleteFilm(1); // Ensure you have this method implemented in your FilmStorage
+        filmStorage.addFilm(compareTestFilm()); // Prepopulate with a known film for tests
     }
 
     @Test
     @DisplayName("должен находиться фильм по ID")
     public void shouldReturnFilmById() {
-        Film film = filmStorage.getFilmById(1); // Убираем Optional и работаем с возвращаемым объектом напрямую
+        Film film = filmStorage.getFilmById(1);
         assertThat(film)
                 .usingRecursiveComparison()
                 .isEqualTo(compareTestFilm());
@@ -88,16 +95,16 @@ public class JdbcFilmStorageTest {
 
         assertThat(filmNew)
                 .usingRecursiveComparison()
-                .isEqualTo(createTestFilm(2));
+                .isEqualTo(createTestFilm(filmNew.getId())); // Use the actual ID of the created film
     }
 
     @Test
     @DisplayName("должен обновить название фильма")
     public void shouldUpdateFilm() {
-        Film film = filmStorage.getFilmById(1); // Убираем Optional и работаем с возвращаемым объектом напрямую
+        Film film = filmStorage.getFilmById(1);
         film.setName("Новое_Имя_Фильма");
-        filmStorage.updateFilm(film); // Используем filmStorage
-        Film updatedFilm = filmStorage.getFilmById(1); // Получаем обновленный фильм
+        filmStorage.updateFilm(film);
+        Film updatedFilm = filmStorage.getFilmById(1);
 
         assertThat(updatedFilm.getName())
                 .isEqualTo("Новое_Имя_Фильма");

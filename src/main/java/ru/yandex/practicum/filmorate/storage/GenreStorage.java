@@ -1,23 +1,23 @@
 package ru.yandex.practicum.filmorate.storage;
 
-import ru.yandex.practicum.filmorate.model.Genre;
+import ru.yandex.practicum.filmorate.model.Genres;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
 public interface GenreStorage {
-    Optional<Genre> findById(Long id);
+    Optional<Genres> findById(Long id);
 
-    Collection<Genre> findByIds(List<Long> genreIds);
+    Collection<Genres> findByIds(List<Long> genreIds);
 
-    Collection<Genre> getGenres();
+    Collection<Genres> getGenres();
 
-    Genre create(Genre genre);
+    Genres create(Genres genres);
 
-    void delete(Genre genre);
+    void delete(Genres genres);
 
-    Genre update(Genre genre);
-    List<Genre> getAllGenres();
-    Genre getGenreById(int id);
+    Genres update(Genres genres);
+    List<Genres> getAllGenres();
+    Genres getGenreById(int id);
 }
