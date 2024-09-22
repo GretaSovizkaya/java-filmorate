@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class FilmDbService {
-    @Qualifier("filmDbStorage")
+    @Qualifier("DataBaseFilmStorage")
     private final FilmStorage filmStorage;
 
     public Film addFilm(Film film) {

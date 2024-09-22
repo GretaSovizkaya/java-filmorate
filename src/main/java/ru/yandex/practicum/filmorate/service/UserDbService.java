@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class UserDbService {
-    @Qualifier("userDbStorage")
+    @Qualifier("DataBaseUserStorage")
     private final UserStorage userStorage;
 
     public User addUser(User user) {

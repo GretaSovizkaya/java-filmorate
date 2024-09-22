@@ -10,8 +10,8 @@ import java.time.LocalDate;
 import java.util.Set;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class Film {
 
@@ -32,6 +32,7 @@ public class Film {
     private String genre;
 
     private String rating;
+
     private int ratingId;
 
     private Set<Integer> genreIds;
