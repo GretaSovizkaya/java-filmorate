@@ -7,8 +7,12 @@ import lombok.*;
 
 import java.time.Duration;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode(of = "id")
 public class Film {
 
     private int id;
@@ -16,7 +20,7 @@ public class Film {
     @NotBlank(message = "Name cannot be empty!")
     private String name;
 
-    @Size(max=200, message = "Description is too long!")
+    @Size(max = 200, message = "Description is too long!")
     private String description;
 
     @NonNull
@@ -25,4 +29,11 @@ public class Film {
 
     private Duration duration;
 
+    private String genre;
+
+    private String rating;
+
+    private int ratingId;
+
+    private Set<Integer> genreIds;
 }
