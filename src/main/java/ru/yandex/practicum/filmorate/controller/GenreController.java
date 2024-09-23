@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.yandex.practicum.filmorate.model.Genres;
 import ru.yandex.practicum.filmorate.service.GenreService;
-
 import java.util.Collection;
 import java.util.List;
+
 @Slf4j
 @RestController
 @RequestMapping("/genres")
