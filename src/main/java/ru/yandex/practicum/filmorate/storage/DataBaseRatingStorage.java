@@ -68,6 +68,7 @@ public class DataBaseRatingStorage implements RatingStorage {
 
         jdbc.update(DELETE_RATING_QUERY, parameters);
     }
+
     @Override
     public Rating getRatingById(int id) {
         String sql = "SELECT FILM_ID, RATING_NAME FROM RATING_MPA WHERE FILM_ID = :filmId";

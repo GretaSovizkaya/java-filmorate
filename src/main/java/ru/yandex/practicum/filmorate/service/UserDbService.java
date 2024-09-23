@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.UserStorage;
+
 import java.util.List;
 
 @Service
@@ -38,7 +39,7 @@ public class UserDbService {
     }
 
     public void removeFriend(int userId, int friendId) {
-        userStorage.removeFriend(userId,friendId);
+        userStorage.removeFriend(userId, friendId);
     }
 
     public List<User> getFriends(int userId) {

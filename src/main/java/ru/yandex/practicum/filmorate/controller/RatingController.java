@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.yandex.practicum.filmorate.model.Rating;
 import ru.yandex.practicum.filmorate.service.RatingService;
+
 import java.util.Collection;
 
 @Slf4j
@@ -26,6 +27,7 @@ public class RatingController {
     public Rating findMpa(@PathVariable int id) {
         return ratingService.findById(id);
     }
+
     @GetMapping("/mpa/{id}")
     public Rating getRatingById(@PathVariable int id) {
         log.info("Запрос на получение рейтинга по id: {}", id);

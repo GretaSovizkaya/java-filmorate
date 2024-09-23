@@ -16,7 +16,10 @@ public interface GenreStorage {
     Genres create(Genres genres);
 
     void delete(Genres genres);
+
     Genres update(Genres genres);
+
     List<Genres> getAllGenres();
+
     Genres getGenreById(int id);
 }

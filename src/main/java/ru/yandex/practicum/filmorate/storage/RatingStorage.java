@@ -13,6 +13,8 @@ public interface RatingStorage {
     Rating create(Rating rating);
 
     void delete(Rating rating);
+
     Rating update(Rating rating);
+
     Rating getRatingById(int id);
 }

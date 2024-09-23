@@ -80,6 +80,7 @@ public class DataBaseGenreStorage implements GenreStorage {
         jdbc.update(DELETE_GENRE_QUERY, parameters);
         jdbc.update(DELETE_FILM_GENRES_QUERY, parameters);
     }
+
     @Override
     public List<Genres> getAllGenres() {
         String sql = "SELECT GENRE_ID, NAME_GENRE FROM GENRE";
